@@ -1,0 +1,154 @@
+{
+  "kind": "build_request",
+  "title": "User-friendly social media app with automatic sign-up and posts/videos feed",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Implement Internet Identity authentication with an automatic sign-up flow: when a new principal first signs in, create a user profile automatically with sensible defaults (e.g., handle derived from principal, display name empty) and do not show a separate signup form.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create social media app that user friendly and every can upload anything like videos posts it could be sign up system sign up system is auto"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A user can sign in using Internet Identity.",
+        "On first successful sign-in, the backend creates a user record for the principal without requiring any extra user input.",
+        "On subsequent sign-ins, the existing user record is reused.",
+        "The UI does not include a standalone signup/registration form."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Create backend data models and APIs to support a social media feed with user-generated content, including: user profile records, post records (text caption + timestamps + author), and optional attached media (image/video) stored on the canister within defined size limits.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "every can upload anything like videos posts"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes methods to create a post, list posts (newest first), and fetch a single post by id.",
+        "Each post includes: id, author principal, createdAt, caption text, and optional media metadata (type, filename, byte size).",
+        "Backend persists posts and user profiles across canister upgrades using stable storage patterns (do not introduce additional actors).",
+        "Backend enforces upload limits (max size and allowed MIME types) and returns clear errors when exceeded."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Build a content creation UI that lets a signed-in user create a new post with caption text and optionally upload one media file (image or video) using a simple, guided form.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "every can upload anything like videos posts"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A signed-in user can open a “Create Post” view and submit caption-only posts.",
+        "A signed-in user can attach a single media file and submit it with the post.",
+        "The UI shows client-side validation (e.g., file type/size) before upload and displays server errors if returned.",
+        "After successful post creation, the user is returned to the feed and sees the new post."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Build a user-friendly feed/browsing experience that displays posts from all users, including caption, author, timestamp, and inline rendering of attached media (images shown as images; videos playable with standard controls).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create social media app that user friendly",
+          "upload anything like videos posts"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The home/feed view loads posts from the backend and renders them in reverse chronological order.",
+        "Posts with images render a responsive image preview.",
+        "Posts with videos render an HTML5 video player with play/pause controls.",
+        "Loading, empty-state, and error states are present and readable in English."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add basic profile viewing/editing for the signed-in user: display principal-based identity, allow setting a display name and bio, and show a simple list/count of the user’s posts.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create social media app"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A signed-in user can view their profile information.",
+        "A signed-in user can update display name and bio, and changes persist after refresh/sign-out/sign-in.",
+        "Profile view shows the user’s posts (or a filtered list) and a post count."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Apply a coherent, distinct visual theme and layout for a modern, user-friendly social app UI (consistent typography, spacing, and components). Use a warm neutral palette (avoid blue/purple) and keep the experience simple and accessible.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "user friendly"
+        ]
+      },
+      "acceptanceCriteria": [
+        "App uses a consistent warm neutral color palette (e.g., off-white, charcoal, coral/amber accents) and consistent typography across pages.",
+        "Navigation between Feed, Create Post, and Profile is obvious and consistent.",
+        "All user-facing text is in English and components have clear focus/hover states."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor (all logic in the main actor file).",
+    "Do not edit files under frontend/src/components/ui or any other paths listed as immutable in SYSTEM_CONTEXT.",
+    "Do not add third-party authentication providers; only Internet Identity is allowed.",
+    "Do not rely on external databases or external object/video storage; store data within the canister and enforce practical upload size limits."
+  ],
+  "nonGoals": [
+    "Real-time chat, DMs, comments, likes, follows, or notifications.",
+    "External video hosting/streaming integrations or CDN storage.",
+    "WebSockets or other real-time transport.",
+    "Advanced content moderation, reporting workflows, or admin dashboards."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Minimalist app logo mark, rounded shape, warm neutral tones (logo-mark.dim_512x512.png)",
+      "Simple empty-state illustration of a phone/feed with abstract shapes, warm neutral palette (empty-feed-illustration.dim_1200x600.png)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [
+      "Build a user-friendly social media app where users can automatically sign up via Internet Identity and upload/browse posts including videos."
+    ],
+    "goalsToRemove": [],
+    "preferencesToAdd": [
+      "Use English for all user-facing text.",
+      "Prefer a warm neutral UI theme (avoid blue/purple)."
+    ],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

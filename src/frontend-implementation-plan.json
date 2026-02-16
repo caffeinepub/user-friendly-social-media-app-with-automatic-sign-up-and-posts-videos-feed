@@ -1,0 +1,175 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Social media app frontend with Internet Identity auth, feed, post creation, and profile",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Add Internet Identity sign-in UI and ensure no standalone signup form is shown while relying on automatic profile creation on first login.",
+      "acceptanceCriteria": [
+        "A user can sign in using Internet Identity.",
+        "On first successful sign-in, the backend creates a user record for the principal without requiring any extra user input.",
+        "On subsequent sign-ins, the existing user record is reused.",
+        "The UI does not include a standalone signup/registration form."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/auth/AuthGate.tsx",
+          "operation": "create",
+          "description": "Create an auth gating wrapper that uses the selected component \"authorization\" (Internet Identity via the provided auth hook) to require login before showing application data; show a clear logged-out screen with a single sign-in action. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Create a reusable login/logout button using the selected component \"authorization\" guidance (Internet Identity login/clear patterns) and ensure logout clears cached app data (React Query cache). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useCurrentUser.ts",
+          "operation": "create",
+          "description": "Create a React Query hook that fetches the current user's profile after authentication (using getCallerUserProfile) and exposes stable loading flags to avoid UI flashing; do not introduce any signup form—treat missing profile as a backend concern and proceed with sensible UI defaults. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire AuthGate and LoginButton into the app shell so the signed-out state blocks access to the feed/profile/create views and the signed-in state proceeds without any separate registration route or form."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Implement a guided Create Post view with caption input and optional single image/video upload, with client-side validation and server error display.",
+      "acceptanceCriteria": [
+        "A signed-in user can open a “Create Post” view and submit caption-only posts.",
+        "A signed-in user can attach a single media file and submit it with the post.",
+        "The UI shows client-side validation (e.g., file type/size) before upload and displays server errors if returned.",
+        "After successful post creation, the user is returned to the feed and sees the new post."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CreatePostPage.tsx",
+          "operation": "create",
+          "description": "Create the Create Post page with a simple form (caption + optional file picker). Use the selected component \"blob-storage\" (ExternalBlob.fromBytes + withUploadProgress) to prepare uploads and show progress, and use shadcn-ui form primitives (e.g., Button/Input/Textarea/Card) for accessible UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useCreatePost.ts",
+          "operation": "create",
+          "description": "Add a mutation hook that calls the backend capability to create a post (createPost) with optional ExternalBlob; map backend errors to user-friendly English messages and invalidate/refetch the feed query on success. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/lib/mediaValidation.ts",
+          "operation": "create",
+          "description": "Implement client-side validation helpers for a single selected media file (allowed MIME types image/* and video/* as configured by the backend, and a practical max size). Return validation messages for display in the form."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register navigation to the Create Post view from the main navigation and ensure successful post creation returns the user to the feed route."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Build the main feed view that lists newest posts first with caption, author, timestamp, and inline media rendering for images/videos, including loading/empty/error states.",
+      "acceptanceCriteria": [
+        "The home/feed view loads posts from the backend and renders them in reverse chronological order.",
+        "Posts with images render a responsive image preview.",
+        "Posts with videos render an HTML5 video player with play/pause controls.",
+        "Loading, empty-state, and error states are present and readable in English."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/FeedPage.tsx",
+          "operation": "create",
+          "description": "Create the Feed page that fetches all posts (getAllPosts), sorts by timestamp descending if needed, and renders a list with readable loading/error/empty states. Use the selected component \"blob-storage\" capability (ExternalBlob.getDirectURL) to render attached media via <img> or <video controls>. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/posts/PostCard.tsx",
+          "operation": "create",
+          "description": "Create a PostCard component to display caption, author (principal string or derived handle if available), formatted timestamp, and inline media. Use shadcn-ui Card/Typography primitives for consistent layout. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useFeed.ts",
+          "operation": "create",
+          "description": "Add a React Query hook for loading the feed (getAllPosts), with retry strategy appropriate for auth-related traps and a stable query key for invalidation after new post creation."
+        },
+        {
+          "path": "frontend/public/assets/generated/empty-feed-illustration.dim_1200x600.png",
+          "operation": "create",
+          "description": "Add the generated empty-state illustration asset at the exact path frontend/public/assets/generated/empty-feed-illustration.dim_1200x600.png and reference it from the Feed empty-state UI."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the Feed page as the primary signed-in route and ensure navigation highlights/returns correctly after creating a post."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Implement signed-in user profile view/edit: show identity, edit display name and bio, and show the user’s post list/count.",
+      "acceptanceCriteria": [
+        "A signed-in user can view their profile information.",
+        "A signed-in user can update display name and bio, and changes persist after refresh/sign-out/sign-in.",
+        "Profile view shows the user’s posts (or a filtered list) and a post count."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ProfilePage.tsx",
+          "operation": "create",
+          "description": "Create the Profile page for the current user: display principal-derived identity info, load current profile (getCallerUserProfile) and the user’s posts (getUserPosts for the current principal), show a post count, and provide an edit form for display name and bio. Use shadcn-ui form components for accessibility. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useProfile.ts",
+          "operation": "create",
+          "description": "Add hooks/mutations to load the caller profile and update it (updateProfile and/or saveCallerUserProfile as appropriate to the backend interface), then refresh profile and post queries after updates."
+        },
+        {
+          "path": "frontend/src/components/profile/ProfileHeader.tsx",
+          "operation": "create",
+          "description": "Create a small profile header component to present display name/handle/bio and the principal in a user-friendly way (English labels), with clear edit affordances and focus states."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the Profile route in the main navigation and ensure it is only accessible when authenticated via AuthGate."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Apply a warm neutral visual theme with consistent typography/spacing and obvious navigation between Feed, Create Post, and Profile.",
+      "acceptanceCriteria": [
+        "App uses a consistent warm neutral color palette (e.g., off-white, charcoal, coral/amber accents) and consistent typography across pages.",
+        "Navigation between Feed, Create Post, and Profile is obvious and consistent.",
+        "All user-facing text is in English and components have clear focus/hover states."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Adjust global styles to a warm neutral palette (off-white backgrounds, charcoal text, amber/coral accents), set consistent typography defaults, and ensure visible focus/hover states while keeping the UI simple and accessible."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Update Tailwind theme tokens (colors, radius, typography) to support the warm neutral design system consistently across components without introducing blue/purple as primary accents."
+        },
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "create",
+          "description": "Create a shared layout with a clear top bar and/or bottom nav linking Feed, Create Post, and Profile, plus a consistent content container and spacing. Use shadcn-ui primitives for navigation buttons/structure where appropriate. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/public/assets/generated/logo-mark.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated logo asset at the exact path frontend/public/assets/generated/logo-mark.dim_512x512.png and wire it into the app layout (e.g., header/brand mark)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire AppLayout around Feed/Create/Profile routes and ensure navigation is consistent and obvious on all pages, with English labels and accessible interactions."
+        }
+      ]
+    }
+  ]
+}

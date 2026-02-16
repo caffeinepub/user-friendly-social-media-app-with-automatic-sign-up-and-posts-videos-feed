@@ -1,0 +1,83 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-16T10:58:29.752Z",
+  "summary": "Diff adds a Motoko backend actor with profile auto-creation and post creation (with optional blob), plus a React frontend with Internet Identity gating, routes (Feed/Create/Profile), theme styling, and hooks for feed/profile/post operations. Several REQ-2 backend data/upgrade/media-metadata/limits items are not evidenced, and required generated image assets are not present in the shown diff summary.",
+  "missing_requirements": [
+    {
+      "id": "REQ-2",
+      "requirement": "Backend persists posts and user profiles across canister upgrades using stable storage patterns (no additional actors).",
+      "reason": "backend/main.mo shows in-memory Maps for profiles/posts but no stable variables or preupgrade/postupgrade logic is evidenced in the truncated file.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Each post includes: id, author principal, createdAt, caption text, and optional media metadata (type, filename, byte size).",
+      "reason": "The Post type shown uses fields {id, author, content, image, timestamp} and the createPost signature takes (content: Text, image: ?Storage.ExternalBlob) with no explicit media metadata fields (MIME/type, filename, byte size).",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Backend enforces upload limits (max size and allowed MIME types) and returns clear errors when exceeded.",
+      "reason": "No upload-size or MIME-type checks (or clear error returns) are evidenced in the shown portion of backend/main.mo; only frontend-side validation is shown.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/lib/mediaValidation.ts"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Admin/role-based access control initialization via a secret URL parameter (caffeineAdminToken) and backend access-control initialization call.",
+      "reason": "BuildRequest does not mention admin tokens, secret URL parameters, or access-control initialization flows; it only requires Internet Identity authentication.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Post deletion capability (UI + hook calling actor.deletePost).",
+      "reason": "Delete-post behavior is not requested in the requirements/non-goals; the spec only requires creating and browsing posts and profile editing.",
+      "evidence": [
+        "frontend/src/components/posts/PostCard.tsx",
+        "frontend/src/hooks/useDeletePost.ts"
+      ]
+    }
+  ],
+  "confidence": 0.72,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/AuthGate.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/layout/AppLayout.tsx",
+    "frontend/src/components/posts/PostCard.tsx",
+    "frontend/src/components/profile/ProfileHeader.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useCreatePost.ts",
+    "frontend/src/hooks/useCurrentUser.ts",
+    "frontend/src/hooks/useDeletePost.ts",
+    "frontend/src/hooks/useFeed.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useProfile.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/hooks/useUserPosts.ts",
+    "frontend/src/index.css",
+    "frontend/src/lib/mediaValidation.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/CreatePostPage.tsx",
+    "frontend/src/pages/FeedPage.tsx",
+    "frontend/src/pages/ProfilePage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

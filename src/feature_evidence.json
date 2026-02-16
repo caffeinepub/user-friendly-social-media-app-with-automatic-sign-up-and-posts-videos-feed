@@ -1,0 +1,120 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-internet-identity-authentication-with-an-automatic-sign-up-flow-when-a-new-principal-first-signs-in-create-a-user-profile-automatically-with-sensible-defaults-e-g-handle-derived-from-principal-display-name-empty-and-do-not-show-a-separate-signup-form",
+      "featureTitle": "Implement Internet Identity authentication with an automatic sign-up flow: when a new principal first signs in, create a user profile automatically with sensible defaults (e.g., handle derived from principal, display name empty) and do not show a separate signup form.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/AuthGate.tsx",
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/hooks/useCurrentUser.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-content-creation-ui-that-lets-a-signed-in-user-create-a-new-post-with-caption-text-and-optionally-upload-one-media-file-image-or-video-using-a-simple-guided-form",
+      "featureTitle": "Build a content creation UI that lets a signed-in user create a new post with caption text and optionally upload one media file (image or video) using a simple, guided form.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useCreatePost.ts",
+        "frontend/src/lib/mediaValidation.ts",
+        "frontend/src/pages/CreatePostPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-user-friendly-feed-browsing-experience-that-displays-posts-from-all-users-including-caption-author-timestamp-and-inline-rendering-of-attached-media-images-shown-as-images-videos-playable-with-standard-controls",
+      "featureTitle": "Build a user-friendly feed/browsing experience that displays posts from all users, including caption, author, timestamp, and inline rendering of attached media (images shown as images; videos playable with standard controls).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/posts/PostCard.tsx",
+        "frontend/src/hooks/useFeed.ts",
+        "frontend/src/pages/FeedPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-basic-profile-viewing-editing-for-the-signed-in-user-display-principal-based-identity-allow-setting-a-display-name-and-bio-and-show-a-simple-list-count-of-the-user-s-posts",
+      "featureTitle": "Add basic profile viewing/editing for the signed-in user: display principal-based identity, allow setting a display name and bio, and show a simple list/count of the user’s posts.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/profile/ProfileHeader.tsx",
+        "frontend/src/hooks/useProfile.ts",
+        "frontend/src/pages/ProfilePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-coherent-distinct-visual-theme-and-layout-for-a-modern-user-friendly-social-app-ui-consistent-typography-spacing-and-components-use-a-warm-neutral-palette-avoid-blue-purple-and-keep-the-experience-simple-and-accessible",
+      "featureTitle": "Apply a coherent, distinct visual theme and layout for a modern, user-friendly social app UI (consistent typography, spacing, and components). Use a warm neutral palette (avoid blue/purple) and keep the experience simple and accessible.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppLayout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

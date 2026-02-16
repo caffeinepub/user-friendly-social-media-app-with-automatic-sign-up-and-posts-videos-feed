@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a simple, user-friendly social media app where anyone can sign up (with an automatic sign-up flow) and upload/browse content such as videos and posts.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Minimalist app logo mark, rounded shape, warm neutral tones (logo-mark.dim_512x512.png)\n- Simple empty-state illustration of a phone/feed with abstract shapes, warm neutral palette (empty-feed-illustration.dim_1200x600.png)",
+  "existing_features": [
+    {
+      "id": "feature-implement-internet-identity-authentication-with-an-automatic-sign-up-flow-when-a-new-principal-first-signs-in-create-a-user-profile-automatically-with-sensible-defaults-e-g-handle-derived-from-principal-display-name-empty-and-do-not-show-a-separate-signup-form",
+      "title": "Implement Internet Identity authentication with an automatic sign-up flow: when a new principal first signs in, create a user profile automatically with sensible defaults (e.g., handle derived from principal, display name empty) and do not show a separate signup form.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-content-creation-ui-that-lets-a-signed-in-user-create-a-new-post-with-caption-text-and-optionally-upload-one-media-file-image-or-video-using-a-simple-guided-form",
+      "title": "Build a content creation UI that lets a signed-in user create a new post with caption text and optionally upload one media file (image or video) using a simple, guided form.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-user-friendly-feed-browsing-experience-that-displays-posts-from-all-users-including-caption-author-timestamp-and-inline-rendering-of-attached-media-images-shown-as-images-videos-playable-with-standard-controls",
+      "title": "Build a user-friendly feed/browsing experience that displays posts from all users, including caption, author, timestamp, and inline rendering of attached media (images shown as images; videos playable with standard controls).",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-basic-profile-viewing-editing-for-the-signed-in-user-display-principal-based-identity-allow-setting-a-display-name-and-bio-and-show-a-simple-list-count-of-the-user-s-posts",
+      "title": "Add basic profile viewing/editing for the signed-in user: display principal-based identity, allow setting a display name and bio, and show a simple list/count of the user’s posts.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-coherent-distinct-visual-theme-and-layout-for-a-modern-user-friendly-social-app-ui-consistent-typography-spacing-and-components-use-a-warm-neutral-palette-avoid-blue-purple-and-keep-the-experience-simple-and-accessible",
+      "title": "Apply a coherent, distinct visual theme and layout for a modern, user-friendly social app UI (consistent typography, spacing, and components). Use a warm neutral palette (avoid blue/purple) and keep the experience simple and accessible.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "User authentication with automatic sign-up flow",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Content upload system for videos and posts (allow users to upload content)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Content feed/browsing UI for viewing uploaded posts and videos",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Clean, user-friendly interface for posting and browsing content",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Create backend data models and APIs to support a social media feed with user-generated content, including: user profile records, post records (text caption + timestamps + author), and optional attached media (image/video) stored on the canister within defined size limits.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    }
+  ],
+  "projectName": "User-friendly social media app with automatic sign-up and posts/videos feed",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

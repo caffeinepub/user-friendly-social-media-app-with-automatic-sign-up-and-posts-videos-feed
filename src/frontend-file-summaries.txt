@@ -1,0 +1,21 @@
+{
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup for Feed, Create Post, and Profile pages, wrapped with ThemeProvider, AuthGate, and Toaster for notifications.",
+  "frontend/src/components/auth/AuthGate.tsx": "Authentication gate component that shows a login screen for unauthenticated users and renders app content for authenticated users, with loading states during initialization.",
+  "frontend/src/components/auth/LoginButton.tsx": "Reusable login/logout button component using Internet Identity with loading states and query cache clearing on logout.",
+  "frontend/src/components/layout/AppLayout.tsx": "Main layout component with sticky header, responsive navigation (desktop and mobile bottom nav), main content area, and footer with caffeine.ai attribution.",
+  "frontend/src/pages/FeedPage.tsx": "Feed page displaying all posts in reverse chronological order with loading, error, and empty states, using the generated empty-state illustration.",
+  "frontend/src/pages/CreatePostPage.tsx": "Post creation page with caption input, optional media upload (image/video), file preview, upload progress tracking, and client-side validation.",
+  "frontend/src/pages/ProfilePage.tsx": "User profile page showing profile information, editable display name and bio, and a list of the user's posts with post count.",
+  "frontend/src/components/posts/PostCard.tsx": "Reusable post card component displaying author, timestamp, caption, and inline media (images/videos) with delete functionality for post authors.",
+  "frontend/src/components/profile/ProfileHeader.tsx": "Profile header component displaying user avatar, display name, handle, bio, and principal ID badge.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for fetching and saving user profiles with proper loading state management to prevent UI flashing.",
+  "frontend/src/hooks/useCurrentUser.ts": "Hook for accessing the current authenticated user's profile with stable loading flags.",
+  "frontend/src/hooks/useFeed.ts": "React Query hook for fetching all posts sorted by timestamp descending (newest first).",
+  "frontend/src/hooks/useCreatePost.ts": "Mutation hook for creating posts with optional media upload and progress tracking, invalidating feed and user posts on success.",
+  "frontend/src/hooks/useProfile.ts": "Hooks for fetching and updating the current user's profile (display name and bio).",
+  "frontend/src/hooks/useUserPosts.ts": "React Query hook for fetching posts by the current authenticated user, sorted by timestamp descending.",
+  "frontend/src/hooks/useDeletePost.ts": "Mutation hook for deleting posts with feed and user posts invalidation on success.",
+  "frontend/src/lib/mediaValidation.ts": "Client-side validation utility for media files, checking file size (max 50MB) and allowed MIME types (images and videos).",
+  "frontend/src/index.css": "Global styles with warm neutral OKLCH color palette (off-white/charcoal backgrounds, amber/coral accents) for both light and dark modes.",
+  "frontend/tailwind.config.js": "Tailwind configuration with warm neutral color tokens, custom border radius, typography, and shadow utilities matching the design system."
+}
